@@ -33,18 +33,14 @@ def get_user_recommendations(user_id, user_campaign_matrix, user_similarity_df, 
 
     return recommendations.head(top_n).index.tolist()
 
-# Загрузка данных
+
 payments, campaigns, small_user_campaign_matrix, user_similarity_df_small = load_data()
 
-# Выбор существующего user_id из списка
-existing_user_id = small_user_campaign_matrix.index[0]  # Например, выбираем первый доступный user_id
+existing_user_id = small_user_campaign_matrix.index[0]
 
-# Получение рекомендаций для выбранного пользователя
 recommendations = get_user_recommendations(existing_user_id, small_user_campaign_matrix, user_similarity_df_small, top_n=5)
 print(f"Recommended Campaigns for user_id {existing_user_id}: {recommendations}")
 
-# Извлечение информации о рекомендованных кампаниях
 recommended_campaigns_info = campaigns[campaigns['id'].isin(recommendations)]
 
-# Вывод информации о рекомендованных кампаниях
 print(recommended_campaigns_info)
